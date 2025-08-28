@@ -6,6 +6,7 @@
   "mixins": [
     "BedrollMixin",
     "EntityPlayerMixin",
+    "GoldenAppleMixin",
     "HardcoreSpawnUtilsMixin"
   ],
   "client": [
