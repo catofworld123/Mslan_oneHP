@@ -1,3 +1,7 @@
+Better Than Wolves on half HP? IMPOSSIBLE! or is it?
+Addon originally for Mslan that makes you have only half a heart.
+
+
 Changelog:
 
 V 1.1-fix
