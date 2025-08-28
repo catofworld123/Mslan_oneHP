@@ -3,6 +3,9 @@ Addon originally for Mslan that makes you have only half a heart.
 
 
 Changelog:
+V 1.2
+
+Notcn apples no longer give you 2 extra hearts. Deal with it.
 
 V 1.1-fix
 
@@ -16,6 +19,12 @@ Fixed player being able to survive low damage sources by killing the entity on d
 
 Addidtions: 
 Death SFX + message roast
+
+V 1.0-fix
+
+Fixes:
+
+Fixed a rare crash issue
 
 V 1.0 (version played by Mslan, no longer avaiable because of crash issues detected by me)
 
