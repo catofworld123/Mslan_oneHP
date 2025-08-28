@@ -92,8 +92,9 @@ public abstract class EntityPlayerMixin extends EntityLivingBase {
         MinecraftServer.getServer().getConfigurationManager().sendChatMsg(chatMessageComponent);
         World world = this.getEntityWorld();
         world.createExplosion(this,this.posX,this.posY,this.posZ,0.0f,false);
-        EntityLightningBolt lightningBolt = new EntityLightningBolt(world,this.posX,this.posY,this.posZ-50);
-        world.spawnEntityInWorld(lightningBolt);
+        this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "ambient.weather.thunder", 10000.0F, 0.8F + this.rand.nextFloat() * 0.2F);
+        this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "random.explode", 2.0F, 0.5F + this.rand.nextFloat() * 0.2F);
+        this.setHealth(-1.0f);
         this.setDead();
 
     }
