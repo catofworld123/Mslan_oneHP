@@ -3,6 +3,11 @@ Addon originally for Mslan that makes you have only half a heart.
 
 
 Changelog:
+
+V 1.2 fix [IMPORTANT]:
+
+Fixed more compatibility with 3.0.0 5a (piles no longer crash the game :D)
+
 V 1.2
 
 Notcn apples no longer give you 2 extra hearts. Deal with it.
