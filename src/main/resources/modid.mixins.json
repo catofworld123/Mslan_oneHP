@@ -10,6 +10,8 @@
     "HardcoreSpawnUtilsMixin"
   ],
   "client": [
+    "GuiCreateWorldMixin",
+    "GuiMixinPause"
   ],
   "injectors": {
     "defaultRequire": 1
