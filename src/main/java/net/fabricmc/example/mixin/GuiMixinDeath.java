@@ -41,9 +41,9 @@ public class GuiMixinDeath extends GuiScreen {
                 long timeOfLastSpawnAssignment = this.mc.thePlayer.getTimeOfLastSpawnAssignment();
                 GuiButton respawnButton = (GuiButton)this.buttonList.get(0);
                 if (!this.mc.theWorld.getDifficulty().hasHardcoreSpawn()) {
-                    respawnButton.displayString = "IDK";
+                    respawnButton.displayString = "I dont like this world";
                 } else if (this.mc.theWorld.getWorldTime() - timeOfLastSpawnAssignment < 10800L && timeOfLastSpawnAssignment != 0L) {
-                    respawnButton.displayString = "Keep going";
+                    respawnButton.displayString = "I dont like this world";
                 } else {
                     respawnButton.displayString = "I dont like this world";
                 }
