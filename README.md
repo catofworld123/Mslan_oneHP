@@ -5,6 +5,10 @@ Addon originally for Mslan that makes you have only half a heart.
 
 Changelog:
 
+V 1.5
+
+Added a configurable overlay. Check your video settings.
+
 V1.4
 
 Added a custom death screen + a button (thanks elmi for a code example, check out NM too! https://github.com/elmi2305/Nightmare-Mode-CE-3.x)
