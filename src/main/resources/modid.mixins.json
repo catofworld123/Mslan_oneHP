@@ -11,6 +11,7 @@
   ],
   "client": [
     "GuiCreateWorldMixin",
+    "GuiInGameMixin",
     "GuiMixinDeath",
     "GuiMixinPause"
   ],

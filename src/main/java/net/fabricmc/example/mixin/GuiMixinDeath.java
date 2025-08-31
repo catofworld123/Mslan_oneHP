@@ -1,5 +1,6 @@
 package net.fabricmc.example.mixin;
 
+import net.fabricmc.example.AttemptCounterBase;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.*;
 import org.lwjgl.opengl.GL11;
@@ -53,7 +54,20 @@ public class GuiMixinDeath extends GuiScreen {
 }
     @Inject(method = "actionPerformed", at = @At("TAIL"), cancellable = true)
     private void Button(GuiButton par1GuiButton, CallbackInfo ci){
+        AttemptCounterBase counterBase = new AttemptCounterBase();
+        if(par1GuiButton.id == 1){
+            if (counterBase.AddAttemptUponDeath){
+                counterBase.AddAttempt();
+            }
+        }
         if(par1GuiButton.id == 4){
+
+            if (counterBase.AddAttemptUponDeath){
+                counterBase.AddAttempt();
+            }
+            else if (counterBase.AddAttemptUponNewWorldCreation){
+                counterBase.AddAttempt();
+            }
             this.mc.displayGuiScreen(null);
             if (this.createClicked) {
                 return;
