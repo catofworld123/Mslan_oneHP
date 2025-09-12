@@ -4,8 +4,6 @@ import net.fabricmc.example.AttemptCounterBase;
 import net.minecraft.src.FontRenderer;
 import net.minecraft.src.GuiIngame;
 import net.minecraft.src.Minecraft;
-import net.minecraft.src.ScaledResolution;
-import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,16 +19,20 @@ public class GuiInGameMixin {
     public void RenderCounter(float par1, boolean par2, int par3, int par4, CallbackInfo ci){
         if (!this.mc.gameSettings.showDebugInfo) {
             AttemptCounterBase counter = new AttemptCounterBase();
-            FontRenderer var8 = this.mc.fontRenderer;
-            this.mc.entityRenderer.setupOverlayRendering();
-            GL11.glEnable(3042);
-            GL11.glPushMatrix();
-            int y = 0;
-            int x = 217;
-            String text = "Attempt " + counter.getAttemptNumber();
-            var8.drawString(text, x, y, 300);
-            GL11.glPopMatrix();
-            GL11.glDisable(3042);
+            if (counter.getoverlayConfig()) {
+                FontRenderer renderer = this.mc.fontRenderer;
+                this.mc.entityRenderer.setupOverlayRendering();
+                int y = 1;
+                int x = 217;
+                String text = "Attempt " + counter.getAttemptNumber();
+                renderer.drawString(text, x - 1, y, 0);
+                renderer.drawString(text, x + 1, y, 0);
+                renderer.drawString(text, x, y + 1, 0);
+                renderer.drawString(text, x, y - 1, 0);
+                renderer.drawString(text, x, y, 0xFFFFFF);
+            }
+
+
         }
     }
 }

@@ -1,6 +1,8 @@
 package net.fabricmc.example.mixin;
 
 import btw.world.util.difficulty.Difficulty;
+import net.fabricmc.example.AttemptCounterBase;
+import net.minecraft.src.EnumGameType;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiCreateWorld;
 import net.minecraft.src.GuiScreen;
@@ -19,6 +21,9 @@ public abstract class GuiCreateWorldMixin extends GuiScreen {
     @Shadow private GuiButton buttonAllowCommands;
     @Shadow private GuiButton buttonCustomize;
     @Shadow private GuiButton moreWorldOptions;
+    @Shadow private boolean createClicked;
+    @Shadow private boolean commandsAllowed;
+    @Shadow private String gameMode;
     @Unique boolean onlyOnce = true;
 
     @Inject(method = "updateButtonText", at = @At("HEAD"))
@@ -46,7 +51,7 @@ public abstract class GuiCreateWorldMixin extends GuiScreen {
     }
 
     @Inject(method = "func_82288_a", at = @At("HEAD"))
-    public void disableBottomB(CallbackInfo ci){
+    public void disableBottomButton(CallbackInfo ci){
         this.moreWorldOptions.enabled = false;
     }
 
@@ -83,7 +88,7 @@ public abstract class GuiCreateWorldMixin extends GuiScreen {
     @Redirect(method = "drawScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 12))
     private String DrawMyText3rdLine(String string){
         if (this.difficultyID == 2) {
-            return "Good luck.                                                  Mslan was here";
+            return "Good luck.                                                  Mslan was here :)";
         }
         if (this.difficultyID != 2)
         {
@@ -91,6 +96,25 @@ public abstract class GuiCreateWorldMixin extends GuiScreen {
         }
         return "ERROR";
     }
+
+    @Inject(method = "actionPerformed", at = @At(value = "RETURN"))
+    private void onWorldCreated(CallbackInfo ci){
+        if (this.createClicked){
+            AttemptCounterBase counter = new AttemptCounterBase();
+            if (counter.getAttemptNumber() == 0){
+                if (!this.commandsAllowed) {
+                    counter.AddAttempt();
+                }
+            }
+            else if(counter.AddAttemptUponNewWorldCreation){
+                if (!this.commandsAllowed) {
+                    counter.AddAttempt();
+                }
+            }
+
+        }
+    }
+
 
 
 

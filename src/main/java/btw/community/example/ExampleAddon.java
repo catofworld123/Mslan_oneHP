@@ -13,6 +13,6 @@ public class ExampleAddon extends BTWAddon {
     @Override
     public void initialize() {
         AddonHandler.logMessage(this.getName() + " Version " + this.getVersionString() + " Initializing...");
-        AddonHandler.logMessage("Hello BTW mod!");
+        AddonHandler.logMessage("Hello BTW World!");
     }
 }

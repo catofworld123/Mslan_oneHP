@@ -5,6 +5,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.*;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,55 +19,73 @@ import java.util.regex.Pattern;
 
 @Mixin(GuiGameOver.class)
 public class GuiMixinDeath extends GuiScreen {
+    @Shadow private int cooldownTimer;
     @Unique
     private boolean createClicked;
-    @Override
-    public void initGui() {
-        this.buttonList.clear();
+    @Inject(method = "initGui", at = @At(value = "FIELD", target = "Lnet/minecraft/src/GuiGameOver;buttonList:Ljava/util/List;",ordinal = 4,shift = At.Shift.AFTER))
+    public void initGui(CallbackInfo ci) {
         if (!MinecraftServer.getIsServer()) {
-            this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 120, "Next Attempt"));
+            this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 120, "Get me a new World"));
         }
-        if (this.mc.theWorld.getWorldInfo().isHardcoreModeEnabled()) {
-            if (this.mc.isIntegratedServerRunning()) {
-                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 96, "Quit"));
-            } else {
-                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 96, "deathScreen.leaveServer"));
-            }
+}
 
-        } else {
-            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 72, "Keep going"));
-            this.buttonList.add(new GuiButton(2, this.width / 2 - 100, this.height / 4 + 96, "Quit"));
-            if (this.mc.getSession() == null) {
-                ((GuiButton)this.buttonList.get(1)).enabled = false;
-            } else {
-                long timeOfLastSpawnAssignment = this.mc.thePlayer.getTimeOfLastSpawnAssignment();
-                GuiButton respawnButton = (GuiButton)this.buttonList.get(0);
-                if (!this.mc.theWorld.getDifficulty().hasHardcoreSpawn()) {
-                    respawnButton.displayString = "I dont like this world";
-                } else if (this.mc.theWorld.getWorldTime() - timeOfLastSpawnAssignment < 10800L && timeOfLastSpawnAssignment != 0L) {
-                    respawnButton.displayString = "I dont like this world";
-                } else {
-                    respawnButton.displayString = "I dont like this world";
+    @Redirect(method = "initGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 0))
+    private String DrawMyTextDeath(String string) {
+        return "Quit";
+    }
+    @Redirect(method = "initGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 1))
+    private String DrawMyTextDeath2(String string) {
+        return "Quit";
+    }
+    @Redirect(method = "initGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 2))
+    private String DrawMyTextDeath3(String string) {
+        return "Keep Going";
+    }
+    @Redirect(method = "initGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 3))
+    private String DrawMyTextDeath4(String string) {
+        return "Quit";
+    }
+    @Redirect(method = "initGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;",ordinal = 0))
+    private String DrawMyTextDeath5(String string) {
+        return "Keep Going";
+    }
+    @Redirect(method = "initGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;",ordinal = 1))
+    private String DrawMyTextDeath6(String string) {
+        return "Keep Going";
+    }
+    @Redirect(method = "initGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/StatCollector;translateToLocal(Ljava/lang/String;)Ljava/lang/String;",ordinal = 2))
+    private String DrawMyTextDeath7(String string) {
+        return "Keep Going";
+    }
+
+
+    @Inject(method = "actionPerformed", at = @At("TAIL"), cancellable = true)
+    private void ButtonClicked(GuiButton par1GuiButton, CallbackInfo ci){
+        if (this.mc.thePlayer != null) {
+        AttemptCounterBase counterBase = new AttemptCounterBase();
+        if(par1GuiButton.id == 1){
+            if (this.mc.theWorld.getWorldInfo().getGameType() != EnumGameType.CREATIVE & !this.mc.theWorld.getWorldInfo().areCommandsAllowed()) {
+                if (counterBase.AddAttemptUponDeath) {
+                    counterBase.AddAttempt();
                 }
             }
         }
-
-}
-    @Inject(method = "actionPerformed", at = @At("TAIL"), cancellable = true)
-    private void Button(GuiButton par1GuiButton, CallbackInfo ci){
-        AttemptCounterBase counterBase = new AttemptCounterBase();
-        if(par1GuiButton.id == 1){
-            if (counterBase.AddAttemptUponDeath){
-                counterBase.AddAttempt();
-            }
-        }
-        if(par1GuiButton.id == 4){
-
-            if (counterBase.AddAttemptUponDeath){
-                counterBase.AddAttempt();
-            }
-            else if (counterBase.AddAttemptUponNewWorldCreation){
-                counterBase.AddAttempt();
+        if(par1GuiButton.id == 4) {
+            GuiButton guiButton0 = (GuiButton)this.buttonList.get(0);
+            GuiButton guiButton1 = (GuiButton)this.buttonList.get(1);
+            GuiButton guiButton2 = (GuiButton)this.buttonList.get(2);
+            guiButton0.enabled = false;
+            guiButton1.enabled = false;
+            guiButton2.enabled = false;
+            par1GuiButton.enabled = false;
+            if (counterBase.AddAttemptUponDeath) {
+                if (this.mc.theWorld.getWorldInfo().getGameType() != EnumGameType.CREATIVE & !this.mc.theWorld.getWorldInfo().areCommandsAllowed()) {
+                    counterBase.AddAttempt();
+                }
+            } else if (counterBase.AddAttemptUponNewWorldCreation) {
+                if (this.mc.theWorld.getWorldInfo().getGameType() != EnumGameType.CREATIVE & !this.mc.theWorld.getWorldInfo().areCommandsAllowed()) {
+                    counterBase.AddAttempt();
+                }
             }
             this.mc.displayGuiScreen(null);
             if (this.createClicked) {
@@ -74,9 +93,9 @@ public class GuiMixinDeath extends GuiScreen {
             }
             this.createClicked = true;
             long seed = new Random().nextLong();
-            WorldSettings settings = new WorldSettings(seed, this.mc.theWorld.getWorldInfo().getGameType(), this.mc.theWorld.getWorldInfo().isMapFeaturesEnabled(), false, this.mc.theWorld.getWorldInfo().getTerrainType(), this.mc.theWorld.getWorldInfo().getDifficulty(),true);
+            WorldSettings settings = new WorldSettings(seed, this.mc.theWorld.getWorldInfo().getGameType(), this.mc.theWorld.getWorldInfo().isMapFeaturesEnabled(), false, this.mc.theWorld.getWorldInfo().getTerrainType(), this.mc.theWorld.getWorldInfo().getDifficulty(), true);
             ISaveFormat var1 = this.mc.getSaveLoader();
-            if(this.mc.theWorld.worldInfo.areCommandsAllowed() || this.mc.theWorld.getWorldInfo().getGameType() == EnumGameType.CREATIVE){
+            if (this.mc.theWorld.worldInfo.areCommandsAllowed() || this.mc.theWorld.getWorldInfo().getGameType() == EnumGameType.CREATIVE) {
                 settings.enableCommands();
             }
             List saveList = null;
@@ -97,6 +116,7 @@ public class GuiMixinDeath extends GuiScreen {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+        }
         }
     }
     @Unique
@@ -134,20 +154,12 @@ public class GuiMixinDeath extends GuiScreen {
         updatedString.replace(start, end, String.valueOf(incrementedValue));
         return updatedString.toString();
     }
-    @Override
-    public void drawScreen(int par1, int par2, float par3) {
-        this.drawGradientRect(0, 0, this.width, this.height, 1615855616, -1602211792);
-        GL11.glPushMatrix();
-        GL11.glScalef(2.0F, 2.0F, 2.0F);
-        boolean var4 = this.mc.theWorld.getWorldInfo().isHardcoreModeEnabled();
-        String var5 = var4 ? "skill issue" : "skill issue";
-        this.drawCenteredString(this.fontRenderer, var5, this.width / 2 / 2, 30, 16777215);
-        GL11.glPopMatrix();
-        if (var4) {
-            this.drawCenteredString(this.fontRenderer, I18n.getString("deathScreen.hardcoreInfo"), this.width / 2, 144, 16777215);
-        }
-
-        this.drawCenteredString(this.fontRenderer, I18n.getString("deathScreen.score") + ": " + EnumChatFormatting.YELLOW + this.mc.thePlayer.getScore(), this.width / 2, 100, 16777215);
-        super.drawScreen(par1, par2, par3);
+    @Redirect(method = "drawScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 0))
+    private String DrawMyText(String string) {
+        return "skill issue";
+    }
+    @Redirect(method = "drawScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 1))
+    private String DrawMyText2(String string) {
+        return "skill issue";
     }
 }

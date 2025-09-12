@@ -4,8 +4,17 @@ import java.io.*;
 
 public class AttemptCounterBase {
     private int ATTEMPT_NUMBER = loadNumber();
-    public boolean AddAttemptUponNewWorldCreation =true;  // loadBooleanA();
-    public boolean AddAttemptUponDeath = true; // loadBooleanB();
+    public boolean AddAttemptUponNewWorldCreation =   loadBooleanA();
+    public boolean AddAttemptUponDeath =  loadBooleanB();
+    public boolean overlayon = loadBooleanC();
+
+    public void setoverlayConfig(boolean b){
+        overlayon = b;
+        saveBooleanC(overlayon);
+    }
+    public boolean getoverlayConfig(){
+        return loadBooleanC();
+    }
 
 
     public void AddAttempt() {
@@ -23,12 +32,14 @@ public class AttemptCounterBase {
         saveNumber(ATTEMPT_NUMBER);
     }
 
+
     public int getAttemptNumber(){
-        return ATTEMPT_NUMBER;
+        return loadNumber();
     }
 
     private static final String FILE_NAME = "saved_number.txt";
     private static final String FILE_NAME_BOOLEAN = "Config_generated.txt";
+    private static final String FILE_NAME_BOOLEAN_C = "Config_generated_overlay.txt";
 
     public static void saveNumber(int number) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
@@ -80,6 +91,24 @@ public class AttemptCounterBase {
                 String line2 = reader.readLine();
                 return Boolean.parseBoolean(line2);
             }
+        } catch (IOException | NumberFormatException e) {
+            System.err.println("Error loading boolean or file not found: " + e.getMessage());
+        }
+        return false;
+
+    }
+    public static void saveBooleanC(boolean c) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME_BOOLEAN_C))) {
+            writer.write(String.valueOf(c));
+        } catch (IOException e) {
+            System.err.println("Error saving boolean: " + e.getMessage());
+        }
+
+    }
+    public static boolean loadBooleanC(){
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME_BOOLEAN_C))) {
+            String line = reader.readLine();
+                return Boolean.parseBoolean(line);
         } catch (IOException | NumberFormatException e) {
             System.err.println("Error loading boolean or file not found: " + e.getMessage());
         }

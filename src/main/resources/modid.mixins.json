@@ -13,7 +13,8 @@
     "GuiCreateWorldMixin",
     "GuiInGameMixin",
     "GuiMixinDeath",
-    "GuiMixinPause"
+    "GuiMixinPause",
+    "GuiVideoSettingsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
