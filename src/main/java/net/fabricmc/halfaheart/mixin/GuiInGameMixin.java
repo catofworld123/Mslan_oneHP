@@ -1,7 +1,6 @@
 package net.fabricmc.halfaheart.mixin;
 
 import net.fabricmc.halfaheart.AttemptCounterBase;
-import net.fabricmc.halfaheart.GoalManager;
 import net.minecraft.src.FontRenderer;
 import net.minecraft.src.GuiIngame;
 import net.minecraft.src.Minecraft;
@@ -33,19 +32,7 @@ public class GuiInGameMixin {
                 renderer.drawString(text, x, y - 1, 0);
                 renderer.drawString(text, x, y, 0xFFFFFF);
             }
-            GoalManager manager = new GoalManager();
-            if (manager.getoverlayConfig()) {
-                FontRenderer renderer = this.mc.fontRenderer;
-                this.mc.entityRenderer.setupOverlayRendering();
-                int y = 1;
-                int x = 1;
-                String text = "Goal: " + manager.GetGoal().trim();
-                renderer.drawString(text, x - 1, y, 0);
-                renderer.drawString(text, x + 1, y, 0);
-                renderer.drawString(text, x, y + 1, 0);
-                renderer.drawString(text, x, y - 1, 0);
-                renderer.drawString(text, x, y, 0xFFFFFF);
-            }
+
 
 
         }
