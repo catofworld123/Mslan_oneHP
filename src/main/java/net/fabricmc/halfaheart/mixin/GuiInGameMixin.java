@@ -19,7 +19,7 @@ public class GuiInGameMixin {
 
     @Inject(method = "renderGameOverlay", at = @At("HEAD"), cancellable = true)
     public void RenderCounters(float par1, boolean par2, int par3, int par4, CallbackInfo ci){
-        if (!this.mc.gameSettings.showDebugInfo) {
+        if ((this.mc.gameSettings.debugScreenState & 1) == 0) {
             AttemptCounterBase counter = new AttemptCounterBase();
             if (counter.getoverlayConfig()) {
                 FontRenderer renderer = this.mc.fontRenderer;
