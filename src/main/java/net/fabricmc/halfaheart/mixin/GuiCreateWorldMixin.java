@@ -1,8 +1,7 @@
-package net.fabricmc.example.mixin;
+package net.fabricmc.halfaheart.mixin;
 
 import btw.world.util.difficulty.Difficulty;
-import net.fabricmc.example.AttemptCounterBase;
-import net.minecraft.src.EnumGameType;
+import net.fabricmc.halfaheart.AttemptCounterBase;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiCreateWorld;
 import net.minecraft.src.GuiScreen;

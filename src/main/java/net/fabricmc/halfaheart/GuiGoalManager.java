@@ -1,9 +1,6 @@
-package net.fabricmc.example;
+package net.fabricmc.halfaheart;
 
 import net.minecraft.src.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 
 
 public class GuiGoalManager extends GuiIngameMenu {

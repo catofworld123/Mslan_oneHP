@@ -1,12 +1,10 @@
-package net.fabricmc.example.mixin;
+package net.fabricmc.halfaheart.mixin;
 
 
-import net.fabricmc.example.GuiCounterSettings;
-import net.fabricmc.example.GuiGoalManager;
+import net.fabricmc.halfaheart.GuiGoalManager;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiIngameMenu;
 import net.minecraft.src.GuiScreen;
-import net.minecraft.src.I18n;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

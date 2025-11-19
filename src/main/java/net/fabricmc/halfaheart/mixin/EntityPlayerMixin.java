@@ -1,4 +1,4 @@
-package net.fabricmc.example.mixin;
+package net.fabricmc.halfaheart.mixin;
 
 import btw.util.status.StatusCategory;
 import btw.util.status.StatusEffect;

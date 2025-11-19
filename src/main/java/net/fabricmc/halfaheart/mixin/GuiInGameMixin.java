@@ -1,7 +1,7 @@
-package net.fabricmc.example.mixin;
+package net.fabricmc.halfaheart.mixin;
 
-import net.fabricmc.example.AttemptCounterBase;
-import net.fabricmc.example.GoalManager;
+import net.fabricmc.halfaheart.AttemptCounterBase;
+import net.fabricmc.halfaheart.GoalManager;
 import net.minecraft.src.FontRenderer;
 import net.minecraft.src.GuiIngame;
 import net.minecraft.src.Minecraft;

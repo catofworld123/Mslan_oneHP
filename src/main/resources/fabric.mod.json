@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "onehp",
-  "version": " 1.6",
+  "id": "halfaheart",
+  "version": " 1.7",
   "name": "§cHalf a heart",
   "description": "Made for Mslan. Plain half of heart. Some funny may be added.",
   "authors": [
@@ -9,28 +9,29 @@
   ],
   "contact": {
     "homepage": "https://github.com/catofworld123/Mslan_oneHP",
-    "sources": "https://github.com/Legacy-Fabric/fabric-example-mod"
+    "sources": "https://github.com/catofworld123/Mslan_oneHP",
+    "issues": "https://github.com/catofworld123/Mslan_oneHP/issues"
 
   },
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/halfaheart/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "net.fabricmc.halfaheart.HalfAHeartMod"
     ],
     "btw:addon": [
-      "btw.community.example.ExampleAddon"
+      "btw.community.halfaheart.HalfAHeartAddon"
     ]
   },
   "custom": {
-    "btw:addon_prefix": "EX"
+    "btw:addon_prefix": "HAH"
   },
   "mixins": [
-    "modid.mixins.json"
+    "halfaheart.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.19",
+    "fabricloader": ">=0.14.25",
     "minecraft": "1.6.4"
   }
 }
