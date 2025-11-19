@@ -1,8 +1,7 @@
-package net.fabricmc.example.mixin;
+package net.fabricmc.halfaheart.mixin;
 
 import btw.world.util.difficulty.Difficulty;
-import net.fabricmc.example.AttemptCounterBase;
-import net.minecraft.src.EnumGameType;
+import net.fabricmc.halfaheart.AttemptCounterBase;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiCreateWorld;
 import net.minecraft.src.GuiScreen;
@@ -57,14 +56,14 @@ public abstract class GuiCreateWorldMixin extends GuiScreen {
 
     @Redirect(method = "updateButtonText", at = @At(value = "INVOKE", target = "Lbtw/world/util/difficulty/Difficulty;getLocalizedName()Ljava/lang/String;"))
     private String SetMyCustomDifficultyName(Difficulty difficulty){
-        if(difficulty.ID == 2) {
+        if(difficulty.index == 2) {
             return "Sans (Hostile)";
         }
-        if(difficulty.ID != 2){
+        if(difficulty.index != 2){
             return "Papyrus";
 
         }
-        return difficulty.NAME;
+        return difficulty.getLocalizedName();
     }
 
     @Redirect(method = "drawScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 10))

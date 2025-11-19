@@ -1,4 +1,4 @@
-package net.fabricmc.example;
+package net.fabricmc.halfaheart;
 
 import java.io.*;
 

@@ -1,6 +1,5 @@
-package net.fabricmc.example.mixin;
+package net.fabricmc.halfaheart.mixin;
 
-import btw.block.blocks.BedBlockBase;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;

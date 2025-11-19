@@ -1,9 +1,8 @@
-package net.fabricmc.example.mixin;
+package net.fabricmc.halfaheart.mixin;
 
-import net.fabricmc.example.AttemptCounterBase;
+import net.fabricmc.halfaheart.AttemptCounterBase;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.*;
-import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;

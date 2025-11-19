@@ -1,9 +1,8 @@
-package net.fabricmc.example.mixin;
+package net.fabricmc.halfaheart.mixin;
 
 import btw.util.hardcorespawn.HardcoreSpawnUtils;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.SharedMonsterAttributes;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,7 +1,6 @@
-package net.fabricmc.example;
+package net.fabricmc.halfaheart;
 
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.GuiCommandBlock;
 import net.minecraft.src.GuiIngameMenu;
 import net.minecraft.src.GuiScreen;
 

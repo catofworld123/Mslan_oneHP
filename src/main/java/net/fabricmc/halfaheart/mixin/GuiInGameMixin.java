@@ -1,7 +1,7 @@
-package net.fabricmc.example.mixin;
+package net.fabricmc.halfaheart.mixin;
 
-import net.fabricmc.example.AttemptCounterBase;
-import net.fabricmc.example.GoalManager;
+import net.fabricmc.halfaheart.AttemptCounterBase;
+import net.fabricmc.halfaheart.GoalManager;
 import net.minecraft.src.FontRenderer;
 import net.minecraft.src.GuiIngame;
 import net.minecraft.src.Minecraft;
@@ -19,7 +19,7 @@ public class GuiInGameMixin {
 
     @Inject(method = "renderGameOverlay", at = @At("HEAD"), cancellable = true)
     public void RenderCounters(float par1, boolean par2, int par3, int par4, CallbackInfo ci){
-        if (!this.mc.gameSettings.showDebugInfo) {
+        if ((this.mc.gameSettings.debugScreenState & 1) == 0) {
             AttemptCounterBase counter = new AttemptCounterBase();
             if (counter.getoverlayConfig()) {
                 FontRenderer renderer = this.mc.fontRenderer;

@@ -1,4 +1,4 @@
-package net.fabricmc.example.mixin;
+package net.fabricmc.halfaheart.mixin;
 
 import btw.block.blocks.BedBlockBase;
 import btw.block.blocks.BedrollBlock;

@@ -1,12 +1,12 @@
-package btw.community.example;
+package btw.community.halfaheart;
 
 import btw.AddonHandler;
 import btw.BTWAddon;
 
-public class ExampleAddon extends BTWAddon {
-    private static ExampleAddon instance;
+public class HalfAHeartAddon extends BTWAddon {
+    private static HalfAHeartAddon instance;
 
-    public ExampleAddon() {
+    public HalfAHeartAddon() {
         super();
     }
 
