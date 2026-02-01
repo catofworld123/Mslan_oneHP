@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.fabricmc.halfaheart.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BedrollMixin",
+    "EntityPlayerMixin",
+    "GoldenAppleMixin",
+    "HardcoreSpawnUtilsMixin"
+  ],
+  "client": [
+    "GuiCreateWorldMixin",
+    "GuiInGameMixin",
+    "GuiMixinDeath",
+    "GuiMixinPause",
+    "GuiVideoSettingsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
+
