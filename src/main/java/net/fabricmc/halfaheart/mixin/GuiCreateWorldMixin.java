@@ -1,6 +1,7 @@
 package net.fabricmc.halfaheart.mixin;
 
 import api.world.difficulty.Difficulty;
+import btw.client.gui.LockButton;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiCreateWorld;
 import net.minecraft.src.GuiScreen;
@@ -22,6 +23,10 @@ public abstract class GuiCreateWorldMixin extends GuiScreen {
     @Shadow private boolean createClicked;
     @Shadow private boolean commandsAllowed;
     @Shadow private String gameMode;
+    @Shadow
+    private GuiButton buttonDifficultyLevel;
+    @Shadow
+    private LockButton buttonLockDifficulty;
     @Unique boolean onlyOnce = true;
 
     @Inject(method = "updateButtonText", at = @At("HEAD"))
@@ -34,7 +39,8 @@ public abstract class GuiCreateWorldMixin extends GuiScreen {
 
     @Inject(method = "actionPerformed", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/GuiCreateWorld;updateButtonText()V", ordinal = 8))
     private void LockHostile(GuiButton par1GuiButton, CallbackInfo ci){
-        if(this.difficultyID == 3){
+        System.out.println(this.difficultyID);
+        if(this.difficultyID == 4){
             this.difficultyID = 0;
         }
         else if (this.difficultyID == 0){
@@ -51,6 +57,8 @@ public abstract class GuiCreateWorldMixin extends GuiScreen {
     @Inject(method = "func_82288_a", at = @At("HEAD"))
     public void disableBottomButton(CallbackInfo ci){
         this.moreWorldOptions.enabled = false;
+        this.buttonDifficultyLevel.enabled = false;
+        this.buttonLockDifficulty.enabled = false;
     }
 
     @Redirect(method = "updateButtonText", at = @At(value = "INVOKE", target = "Lapi/world/difficulty/Difficulty;getLocalizedName()Ljava/lang/String;"))
@@ -58,19 +66,25 @@ public abstract class GuiCreateWorldMixin extends GuiScreen {
         if(difficulty.index == 4) {
             return "Half a heart";
         }
-        if(difficulty.index != 4){
-            return "Half a heart (casual)";
+        else{
+            if(difficulty.index != 4){
+                return "Half a heart (casual)";
 
+            }
+            else{
+                return difficulty.getLocalizedName();
+            }
         }
-        return difficulty.getLocalizedName();
+
     }
+
 
 
 
     @Redirect(method = "drawScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 10))
     private String DrawMyText(String string){
         if (this.difficultyID == 4) {
-            return "Harder. Stronger. Better. Funner.";
+            return "Half a heart. What did you expect?";
         }
         if (this.difficultyID != 4)
         {
@@ -81,7 +95,7 @@ public abstract class GuiCreateWorldMixin extends GuiScreen {
     @Redirect(method = "drawScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 11))
     private String DrawMyText2ndLine(String string){
         if (this.difficultyID == 4 || this.difficultyID != 1) {
-            return "You know the drill.";
+            return "You know the drill. Press the button.";
         }
         return "ERROR";
     }
