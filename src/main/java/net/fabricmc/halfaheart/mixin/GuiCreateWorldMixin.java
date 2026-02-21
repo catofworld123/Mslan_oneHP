@@ -1,8 +1,6 @@
 package net.fabricmc.halfaheart.mixin;
 
 import api.world.difficulty.Difficulty;
-import btw.world.BTWDifficulties;
-import net.fabricmc.halfaheart.AttemptCounterBase;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiCreateWorld;
 import net.minecraft.src.GuiScreen;
@@ -99,23 +97,7 @@ public abstract class GuiCreateWorldMixin extends GuiScreen {
         return "ERROR";
     }
 
-    @Inject(method = "actionPerformed", at = @At(value = "RETURN"))
-    private void onWorldCreated(CallbackInfo ci){
-        if (this.createClicked){
-            AttemptCounterBase counter = new AttemptCounterBase();
-            if (counter.getAttemptNumber() == 0){
-                if (!this.commandsAllowed) {
-                    counter.AddAttempt();
-                }
-            }
-            else if(counter.AddAttemptUponNewWorldCreation){
-                if (!this.commandsAllowed) {
-                    counter.AddAttempt();
-                }
-            }
 
-        }
-    }
 
 
 

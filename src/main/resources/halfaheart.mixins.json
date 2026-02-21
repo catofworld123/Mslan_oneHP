@@ -11,10 +11,8 @@
   ],
   "client": [
     "GuiCreateWorldMixin",
-    "GuiInGameMixin",
     "GuiMixinDeath",
-    "GuiMixinPause",
-    "GuiVideoSettingsMixin"
+    "GuiMixinPause"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,6 +1,5 @@
 package net.fabricmc.halfaheart.mixin;
 
-import net.fabricmc.halfaheart.AttemptCounterBase;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
@@ -61,14 +60,6 @@ public class GuiMixinDeath extends GuiScreen {
     @Inject(method = "actionPerformed", at = @At("TAIL"), cancellable = true)
     private void ButtonClicked(GuiButton par1GuiButton, CallbackInfo ci){
         if (this.mc.thePlayer != null) {
-        AttemptCounterBase counterBase = new AttemptCounterBase();
-        if(par1GuiButton.id == 1){
-            if (this.mc.theWorld.getWorldInfo().getGameType() != EnumGameType.CREATIVE & !this.mc.theWorld.getWorldInfo().areCommandsAllowed()) {
-                if (counterBase.AddAttemptUponDeath) {
-                    counterBase.AddAttempt();
-                }
-            }
-        }
         if(par1GuiButton.id == 4) {
             GuiButton guiButton0 = (GuiButton)this.buttonList.get(0);
             GuiButton guiButton1 = (GuiButton)this.buttonList.get(1);
@@ -77,15 +68,6 @@ public class GuiMixinDeath extends GuiScreen {
             guiButton1.enabled = false;
             guiButton2.enabled = false;
             par1GuiButton.enabled = false;
-            if (counterBase.AddAttemptUponDeath) {
-                if (this.mc.theWorld.getWorldInfo().getGameType() != EnumGameType.CREATIVE & !this.mc.theWorld.getWorldInfo().areCommandsAllowed()) {
-                    counterBase.AddAttempt();
-                }
-            } else if (counterBase.AddAttemptUponNewWorldCreation) {
-                if (this.mc.theWorld.getWorldInfo().getGameType() != EnumGameType.CREATIVE & !this.mc.theWorld.getWorldInfo().areCommandsAllowed()) {
-                    counterBase.AddAttempt();
-                }
-            }
             this.mc.displayGuiScreen(null);
             if (this.createClicked) {
                 return;
@@ -155,10 +137,10 @@ public class GuiMixinDeath extends GuiScreen {
     }
     @Redirect(method = "drawScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 0))
     private String DrawMyText(String string) {
-        return "skill issue";
+        return "skill issue lol";
     }
     @Redirect(method = "drawScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/I18n;getString(Ljava/lang/String;)Ljava/lang/String;",ordinal = 1))
     private String DrawMyText2(String string) {
-        return "skill issue";
+        return "skill issue lol";
     }
 }
