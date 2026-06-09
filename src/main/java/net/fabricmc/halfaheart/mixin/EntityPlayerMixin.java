@@ -87,14 +87,6 @@ public abstract class EntityPlayerMixin extends EntityLivingBase {
 
     @Inject(method = "damageEntity", at = @At("HEAD"))
     public void damageEntity(CallbackInfo ci)  {
-        ChatMessageComponent chatMessageComponent = new ChatMessageComponent();
-        chatMessageComponent.setColor(EnumChatFormatting.DARK_RED);
-        chatMessageComponent.addText("<Better Than Wolves> Too bad, huh? It was all your fault.");
-        MinecraftServer.getServer().getConfigurationManager().sendChatMsg(chatMessageComponent);
-        World world = this.getEntityWorld();
-        world.createExplosion(this,this.posX,this.posY,this.posZ,0.0f,false);
-        this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "ambient.weather.thunder", 10000.0F, 0.8F + this.rand.nextFloat() * 0.2F);
-        this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "random.explode", 2.0F, 0.5F + this.rand.nextFloat() * 0.2F);
         this.setHealth(-1.0f);
         this.setDead();
     }

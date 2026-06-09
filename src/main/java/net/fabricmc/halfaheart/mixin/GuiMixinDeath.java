@@ -20,7 +20,7 @@ public class GuiMixinDeath extends GuiScreen {
     @Shadow private int cooldownTimer;
     @Unique
     private boolean createClicked;
-    @Inject(method = "initGui", at = @At(value = "FIELD", target = "Lnet/minecraft/src/GuiGameOver;buttonList:Ljava/util/List;",ordinal = 4,shift = At.Shift.AFTER))
+    @Inject(method = "initGui", at = @At(value = "FIELD", target = "Lnet/minecraft/src/GuiGameOver;buttonList:Ljava/util/List;",ordinal = 4,shift = At.Shift.AFTER),cancellable = true)
     public void initGui(CallbackInfo ci) {
         if (!MinecraftServer.getIsServer()) {
             this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 120, "Get me a new World"));

@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "halfaheart",
+  "id": "hlh",
   "version": " 1.7",
   "name": "§cHalf a heart",
-  "description": "Made for Mslan. Plain half of heart. Some funny may be added.",
+  "description": "Originally made for Mslan. Half a heart + some anti-cheeses. Some funny may be added.",
   "authors": [
     "catofworld123, with help of AbbyRead"
   ],
@@ -12,7 +12,7 @@
     "sources": "https://github.com/catofworld123/Mslan_oneHP"
   },
   "license": "CC0-1.0",
-  "icon": "assets/halfaheart/icon.png",
+  "icon": "assets/hlh/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -26,7 +26,7 @@
     "btw:addon_prefix": "HAH"
   },
   "mixins": [
-    "halfaheart.mixins.json"
+    "hlh.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.19",

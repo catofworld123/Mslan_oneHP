@@ -2,6 +2,7 @@ package btw.community.halfaheart;
 
 import api.AddonHandler;
 import api.BTWAddon;
+import api.world.BlockPos;
 
 public class HalfAHeartAddon extends BTWAddon {
     private static HalfAHeartAddon instance;
@@ -15,4 +16,5 @@ public class HalfAHeartAddon extends BTWAddon {
         AddonHandler.logMessage(this.getName() + " Version " + this.getVersionString() + " Initializing...");
         AddonHandler.logMessage("Hello BTW NoHit World!");
     }
+
 }
